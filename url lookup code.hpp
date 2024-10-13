@@ -20,14 +20,13 @@ int fetchCoordinates(const std::string& location, const std::string& filename){
     curl = curl_easy_init();
     
     for(char c: location){
-        if(c == ' ')
-            c = '+';
+        if(!isalpha(c)) c = '+';
         escapedLocation += c;
     }
     
     // Construct the Nominatim reverse geocoding API URL
     std::string nominatimUrl = "https://nominatim.openstreetmap.org/search?q=" + escapedLocation + "&format=json";
-
+    std::cout << nominatimUrl << std::endl;
     
     if(curl){
         // Set the URL for the Nominatim API query

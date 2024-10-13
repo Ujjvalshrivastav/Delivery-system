@@ -27,31 +27,26 @@ nlohmann::json openfile(const std::string& location, const std::string& filename
 
 int main(){
     //get the start and end locations
-    std::string  loc1, loc2;
-
-    std::cout << "Enter location 1: ";
-    std::cin >> loc1;
-    std::cout << std::endl << "Enter location 2: ";
-    std::cin >> loc2;
     
-    nlohmann::json startLocation = openfile(loc1, "loc1");
-    nlohmann::json endLocation = openfile(loc2, "loc2");
+    nlohmann::json startLocation = openfile("Thane fort, Thane", "loc1");
+    nlohmann::json endLocation = openfile("Sitabuldi Fort, Nagpur", "loc2");
     double startLat, startLong, endLat, endLong;
     
-    std::cout << "Parsed Json data: " << startLocation.dump(4) << std::endl;
-    std::cout << "Parsed Json data: " << endLocation.dump(4) << std::endl;
+    //std::cout << "Parsed Json data: " << startLocation.dump(4) << std::endl;
+    //std::cout << "Parsed Json data: " << endLocation.dump(4) << std::endl;
 
     //get start and end coordinates
-    for(auto& element: startLocation.items()){
-        if(element.key() == "lat")    double startLat = std::stod(element.key());
+    std::string lat1 = startLocation[0]["lat"];
+    std::string long1 = startLocation[0]["lon"];
 
-        if(element.key() == "lon")    double startLong = std::stod(element.key());
-    }
+    std::string lat2 = endLocation[0]["lat"];
+    std::string long2 = endLocation[0]["lon"];
 
-    for(auto& element: endLocation.items()){
-        if(element.key() == "lat")    endLat = std::stod(element.key());
-        if(element.key() == "lon")    endLong = std::stod(element.key());
-    }
+    startLat = std::stod(lat1);
+    startLong = std::stod(long1);
+    endLat = std::stod(lat2);
+    endLong = std::stod(long2);
+    
     //calculate direct distance for drone
     double distance = haversine(startLat, startLong, endLat, endLong);
 
