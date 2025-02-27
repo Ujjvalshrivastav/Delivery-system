@@ -1,0 +1,10 @@
+command 1: cmake -G "MinGW Makefiles" ^
+      -DCMAKE_BUILD_TYPE=Release ^
+      -DOpenCV_DIR=D:/opencv ^
+      -DCMAKE_INSTALL_PREFIX=D:/SDK/dlib_install ^
+      -S D:/SDK/dlib-19.24 ^
+      -B D:/SDK/dlib_build
+
+comamnd 2: mingw32-make -j4 -C D:/SDK/dlib_build
+
+command 3: mingw32-make -j4 install -C D:/SDK/dlib_build
